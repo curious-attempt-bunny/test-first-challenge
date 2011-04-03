@@ -1,13 +1,18 @@
 package com.curiousattemptbunny.testfirstchallenge
 
+import groovy.lang.GroovyShell;
 import groovy.util.Eval;
 
 class Sheet {
 	Map cellToFormula = [:].withDefault( { return { '' } } )
 	Map cellToLiteralValue = [:].withDefault( { '' } )
 	
+	Object getValue(String cell) {
+		cellToFormula.getAt(cell).call()
+	}
+	
 	String get(String cell) {
-		cellToFormula.getAt(cell).call().toString()
+		getValue(cell).toString()
 	}
 
 	String getLiteral(String cell) {
@@ -26,8 +31,14 @@ class Sheet {
 		if (literalValue.startsWith('=')) {
 			formula = {
 				try {
-					return Eval.me(literalValue[1..-1])
-				} catch (Error) {
+					Binding binding = new Binding(sheet:this)
+					GroovyShell shell = new GroovyShell(binding)
+					def expression = literalValue[1..-1]
+					return shell.evaluate("this.metaClass.propertyMissing = { name -> sheet.getValue(name) } ; "+expression)
+				} catch (StackOverflowError e) {
+					return "#Circular"
+				} catch (e) {
+					e.printStackTrace();
 					return "#Error"
 				}
 			}	
