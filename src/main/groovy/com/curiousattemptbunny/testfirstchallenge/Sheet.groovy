@@ -1,11 +1,13 @@
 package com.curiousattemptbunny.testfirstchallenge
 
+import groovy.util.Eval;
+
 class Sheet {
-	Map cellToValue = [:].withDefault( { '' } )
+	Map cellToFormula = [:].withDefault( { return { '' } } )
 	Map cellToLiteralValue = [:].withDefault( { '' } )
 	
 	String get(String cell) {
-		cellToValue.getAt(cell).toString()
+		cellToFormula.getAt(cell).call().toString()
 	}
 
 	String getLiteral(String cell) {
@@ -19,7 +21,18 @@ class Sheet {
 		} catch (NumberFormatException) {
 			
 		}
-		cellToValue.putAt cell, storedValue	
+		def formula = { storedValue }
+
+		if (literalValue.startsWith('=')) {
+			formula = {
+				try {
+					return Eval.me(literalValue[1..-1])
+				} catch (Error) {
+					return "#Error"
+				}
+			}	
+		}
+		cellToFormula.putAt cell, formula
 		cellToLiteralValue.putAt cell, literalValue
 	}
 	
