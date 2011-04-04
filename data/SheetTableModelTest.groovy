@@ -29,17 +29,17 @@ class SheetTableModelTest extends Specification {
 
 	public void testColumnNames() {
 		expect:
-		 ("" == table.getColumnName(0))
-		 ("A" == table.getColumnName(1))
-		 ("Z" == table.getColumnName(26))
-		 ("AW" == table.getColumnName(LAST_COLUMN_INDEX))
+		 "" == table.getColumnName(0)
+		 "A" == table.getColumnName(1)
+		 "Z" == table.getColumnName(26)
+		 "AW" == table.getColumnName(LAST_COLUMN_INDEX)
 	}
 
 	/*23*/def "column 0 contains index"() {
 		expect:
-		 ("1" == table.getValueAt(0,0))
-		 ("50"== table.getValueAt(49, 0))
-		 ("100" == table.getValueAt(LAST_ROW_INDEX,0))
+		 "1" == table.getValueAt(0,0)
+		 "50"== table.getValueAt(49, 0)
+		 "100" == table.getValueAt(LAST_ROW_INDEX,0)
 	}
 
 	/*24*/// Remember, one test at a time, followed by refactoring.
@@ -65,15 +65,15 @@ class SheetTableModelTest extends Specification {
 		table.setValueAt("=A1", 1, 1)
 
 		then:
-		("21" == table.getValueAt(0,1))
-		("21" == table.getValueAt(1,1))
+		"21" == table.getValueAt(0,1)
+		"21" == table.getValueAt(1,1)
 
 		when:
 		table.setValueAt("22", 0, 1)
 		then:
 		
-		("22" == table.getValueAt(0,1))
-		("22" == table.getValueAt(1,1))
+		"22" == table.getValueAt(0,1)
+		"22" == table.getValueAt(1,1)
 	}
 
 	/*26*/// We"ve established that the table model can get and set values.
@@ -108,16 +108,16 @@ class SheetTableModelTest extends Specification {
 		TestTableModelListener listener = new TestTableModelListener()
 		
 		when:
-		table.addTableModelListener (listener)
+		table.addTableModelListener(listener)
 		
 		then:
-		 (!listener.wasNotified)
+		!listener.wasNotified
 
 		when:
 		table.setValueAt("22", 0, 1)
 
 		then:
-		 (listener.wasNotified)
+		listener.wasNotified
 	}
 
 	/*27*/// Note the cast in our test here. Previous tests have been straight
@@ -132,10 +132,11 @@ class SheetTableModelTest extends Specification {
 		sheet.put("A1", "=7")
 		
 		then:
-		("=7" == table.getLiteralValueAt(0, 1))
+		"=7" == table.getLiteralValueAt(0, 1)
 	}
 
 	// We"ve left isCellEditable() false, on the assumption that the way to edit
 	// the cell is to go to a textbox provided for that purpose (rather than
 	// in place).
+	/*28*/
 }

@@ -28,12 +28,13 @@ task next(dependsOn: test) << {
 
 	def dataDir = new File(project.projectDir, "data")
 
-	if (marker >= 28) {
+	if (marker > 28) {
 		println "Well now! You've completed the test-first-challenge! Congratulations!"
 	} else {
 		if (marker >= 22) {
 			writeTest(new File(dataDir, "SheetTableModelTest.groovy"), marker)
-		} else {
+		}
+		if (marker <= 22)
 			writeTest(new File(dataDir, "SheetTest.groovy"), marker)
 		}
 		markerFile.write( ""+(marker+1) )
@@ -47,6 +48,8 @@ def writeTest(file, marker) {
 	testText = testText.substring(0,testText.indexOf('/*'+marker+'*/'))+"\n}"
 	testText = testText.replaceAll("/\\*.*?\\*/", "")
 	test.write(testText)
+
+	println "Updated test: "+test
 }
 
 task wrapper(type: Wrapper) {
