@@ -10,6 +10,43 @@ dependencies {
 	testCompile 'org.spockframework:spock-core:0.5-groovy-1.7'
 }
 
+test {
+	doFirst {
+		println()
+		println "If the tests pass we'll add more..."
+		println()
+	}
+}
+
 task next(dependsOn: test) << {
+	println()
+	println "Great! The tests pass, adding new tests..."
+	println()
+
+	def markerFile = new File(project.projectDir, "data/marker.txt")
+	def marker = markerFile.exists() ? markerFile.text as Integer : 2
+
+	def dataDir = new File(project.projectDir, "data")
+
+	if (marker > 28) {
+		println "Well now! You've completed the test-first-challenge! Congratulations!"
+	} else {
+		if (marker >= 22) {
+			writeTest(new File(dataDir, "SheetTableModelTest.groovy"), marker)
+		} else {
+			writeTest(new File(dataDir, "SheetTest.groovy"), marker)
+		}
+		markerFile.write( ""+(marker+1) )
+	}
+}
+
+def writeTest(file, marker) {
+	def test = new File(new File(project.projectDir, "/src/test/groovy/com/curiousattemptbunny/testfirstchallenge"), file.name)
+
+	def testText = file.text
+	if (testText.indexOf('/*'+marker+'*/')) {
+		testText = testText.substring(0,testText.indexOf('/*'+marker+'*/'))+"\n}"
+	}
 	
+	test.write(testText)
 }
