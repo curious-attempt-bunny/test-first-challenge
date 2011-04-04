@@ -34,7 +34,7 @@ task next(dependsOn: test) << {
 		if (marker >= 22) {
 			writeTest(new File(dataDir, "SheetTableModelTest.groovy"), marker)
 		}
-		if (marker <= 22)
+		if (marker <= 22) {
 			writeTest(new File(dataDir, "SheetTest.groovy"), marker)
 		}
 		markerFile.write( ""+(marker+1) )
