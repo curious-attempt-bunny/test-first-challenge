@@ -1,5 +1,10 @@
 I've modernized the [original](http://xp123.com/articles/test-first-challenge/) Test First Challenge using Gradle!
 
+First you need to clone this repository:
+
+* git clone git@github.com:curious-attempt-bunny/test-first-challenge.git
+* cd test-first-challenge
+
 Now you can simply generate an IDE project: (if you're using Windows replace gradlew with gradlew.bat)
 
 For IDEA:
