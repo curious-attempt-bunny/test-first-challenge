@@ -18,3 +18,4 @@ passing the Gradle script will the next test case for you:
 Enjoy!
 
 PS The project will start in a state in which it won't compile. You'll need to add a Sheet class to either src/main/groovy or src/main/java first.
+PPS Please provide feedback [http://www.curiousattemptbunny.com/2011/04/test-first-challenge-modernized-for.html here].
