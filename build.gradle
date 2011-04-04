@@ -28,7 +28,7 @@ task next(dependsOn: test) << {
 
 	def dataDir = new File(project.projectDir, "data")
 
-	if (marker > 28) {
+	if (marker >= 28) {
 		println "Well now! You've completed the test-first-challenge! Congratulations!"
 	} else {
 		if (marker >= 22) {
@@ -44,9 +44,7 @@ def writeTest(file, marker) {
 	def test = new File(new File(project.projectDir, "/src/test/groovy/com/curiousattemptbunny/testfirstchallenge"), file.name)
 
 	def testText = file.text
-	if (testText.indexOf('/*'+marker+'*/') != -1) {
-		testText = testText.substring(0,testText.indexOf('/*'+marker+'*/'))+"\n}"
-	}
+	testText = testText.substring(0,testText.indexOf('/*'+marker+'*/'))+"\n}"
 	testText = testText.replaceAll("/\\*.*?\\*/", "")
 	test.write(testText)
 }

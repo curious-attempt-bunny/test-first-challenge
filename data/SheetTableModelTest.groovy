@@ -25,7 +25,7 @@ class SheetTableModelTest extends Specification {
 		"" == table.getValueAt(10,10)
 	}
 
-	/*23*/// Take a look at AbstractTableModel"s documentation before doing this test.
+	/*22*/// Take a look at AbstractTableModel"s documentation before doing this test.
 
 	public void testColumnNames() {
 		expect:
@@ -35,14 +35,14 @@ class SheetTableModelTest extends Specification {
 		 ("AW" == table.getColumnName(LAST_COLUMN_INDEX))
 	}
 
-	/*24*/def "column 0 contains index"() {
+	/*23*/def "column 0 contains index"() {
 		expect:
 		 ("1" == table.getValueAt(0,0))
 		 ("50"== table.getValueAt(49, 0))
 		 ("100" == table.getValueAt(LAST_ROW_INDEX,0))
 	}
 
-	/*25*/// Remember, one test at a time, followed by refactoring.
+	/*24*/// Remember, one test at a time, followed by refactoring.
 
 	def "main columns have contents"() {
 		when:
@@ -59,7 +59,7 @@ class SheetTableModelTest extends Specification {
 		"lower right" | LAST_ROW_INDEX | LAST_COLUMN_INDEX | "AW100"
 	}
 
-	/*26*/def "stores work through table model"() {
+	/*25*/def "stores work through table model"() {
 		when:
 		table.setValueAt("21", 0, 1)
 		table.setValueAt("=A1", 1, 1)
@@ -76,7 +76,7 @@ class SheetTableModelTest extends Specification {
 		("22" == table.getValueAt(1,1))
 	}
 
-	/*27*/// We"ve established that the table model can get and set values.
+	/*26*/// We"ve established that the table model can get and set values.
 	// But JTable uses an event notification mechanism to find out
 	// about the changes.
 
@@ -120,7 +120,7 @@ class SheetTableModelTest extends Specification {
 		 (listener.wasNotified)
 	}
 
-	/*28*/// Note the cast in our test here. Previous tests have been straight
+	/*27*/// Note the cast in our test here. Previous tests have been straight
 	// implementations of TableModel functions now we"re saying that
 	// our model has some extra functions. We"ll face a small tradeoff later
 	// when we want access to the feature: if we get the model back from JTable,
