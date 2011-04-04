@@ -1,4 +1,4 @@
-I've modernized the original Test First Challenge using Gradle!
+I've modernized the [original](http://xp123.com/articles/test-first-challenge/) Test First Challenge using Gradle!
 
 Now you can simply generate an IDE project: (if you're using Windows replace gradlew with gradlew.bat)
 
