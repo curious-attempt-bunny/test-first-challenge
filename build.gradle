@@ -44,10 +44,10 @@ def writeTest(file, marker) {
 	def test = new File(new File(project.projectDir, "/src/test/groovy/com/curiousattemptbunny/testfirstchallenge"), file.name)
 
 	def testText = file.text
-	if (testText.indexOf('/*'+marker+'*/')) {
+	if (testText.indexOf('/*'+marker+'*/') != -1) {
 		testText = testText.substring(0,testText.indexOf('/*'+marker+'*/'))+"\n}"
 	}
-	
+	testText = testText.replaceAll("/\\*.*?\\*/", "")
 	test.write(testText)
 }
 
