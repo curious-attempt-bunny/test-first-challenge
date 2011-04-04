@@ -50,3 +50,7 @@ def writeTest(file, marker) {
 	
 	test.write(testText)
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.0-milestone-1'
+}
